@@ -74,6 +74,30 @@ import java.awt.event.FocusEvent;
 import javax.swing.ImageIcon;
 import java.net.URL;
 import java.net.MalformedURLException;
+import com.enterprisedt.net.ftp.FTPClient;
+import com.enterprisedt.net.ftp.FTPMessageCollector;
+import com.enterprisedt.net.ftp.FTPTransferType;
+import com.enterprisedt.net.ftp.FTPConnectMode;
+import com.enterprisedt.util.debug.Level;
+import com.enterprisedt.util.debug.Logger;
+import java.beans.XMLEncoder;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
+import java.beans.DefaultPersistenceDelegate;
+import java.beans.PersistenceDelegate;
+import org.jgraph.graph.AbstractCellView;
+import java.beans.Expression;
+import java.beans.Encoder;
+import java.beans.XMLDecoder;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import com.enterprisedt.net.ftp.FTPClient;
+import com.enterprisedt.net.ftp.FTPMessageCollector;
+import com.enterprisedt.net.ftp.FTPTransferType;
+import com.enterprisedt.net.ftp.FTPConnectMode;
+import com.enterprisedt.util.debug.Level;
+import com.enterprisedt.util.debug.Logger;
 
 public class TheReaper extends JPanel implements ActionListener,
 HyperlinkListener,MouseListener,ProcessorMessageListener,
@@ -137,6 +161,7 @@ ProcessorThreadStateChangedListener,FocusListener{
     private static final Dimension DEFAULT_SIZE = new Dimension(500, 500);
     private JColorChooser colorChooser;
     private GraphUndoManager undoManager;
+
     //private WebBrowser webBrowser;
 
     private ProcessorThread.ProcessorThreadState currentProcessingState=ProcessorThread.ProcessorThreadState.STOPPED;
@@ -1123,6 +1148,116 @@ ProcessorThreadStateChangedListener,FocusListener{
     	
     	if(e.getActionCommand().equals("SaveCurrentMindmap"))
     	{
+    		try
+    		{
+    			
+    		XMLEncoder encoder = new XMLEncoder(
+    			    new BufferedOutputStream(
+    			    		new FileOutputStream(usernameTextField.getText()+".xml")));
+    			
+    		
+    		encoder.setPersistenceDelegate(DefaultGraphModel.class,
+    		           new DefaultPersistenceDelegate(new String[] { "roots",
+    		                      "attributes" }));
+    		
+    		encoder.setPersistenceDelegate(GraphLayoutCache.class,
+    		           new DefaultPersistenceDelegate(new String[] { "model",
+    		                      "factory", "cellViews", "hiddenCellViews",
+    		                      "partial" }));
+    		                      
+    		encoder.setPersistenceDelegate(DefaultGraphCell.class,
+    		           new DefaultPersistenceDelegate(
+    		                      new String[] { "userObject" }));
+    		                      
+    		encoder.setPersistenceDelegate(DefaultEdge.class,
+    		           new DefaultPersistenceDelegate(
+    		                      new String[] { "userObject" }));
+    		                 
+    		encoder.setPersistenceDelegate(DefaultPort.class,
+    		           new DefaultPersistenceDelegate(
+    		                      new String[] { "userObject" }));
+    		                      
+    		                      
+    		encoder.setPersistenceDelegate(AbstractCellView.class,
+    		           new DefaultPersistenceDelegate(new String[] { "cell",
+    		                      "attributes" }));
+    		                      
+    		                      
+    		encoder.setPersistenceDelegate(
+    		           DefaultEdge.DefaultRouting.class,
+    		           new PersistenceDelegate() {
+    		                protected Expression instantiate(
+    		                           Object oldInstance, Encoder out) {
+    		                      return new Expression(oldInstance,
+    		                                 GraphConstants.class,
+    		                                 "getROUTING_SIMPLE", null);
+    		                }
+    		           });
+    		           
+    		 /**
+    		encoder.setPersistenceDelegate(DefaultEdge.LoopRouting.class,
+    		           new PersistenceDelegate() {
+    		                protected Expression instantiate(
+    		                           Object oldInstance, Encoder out) {
+    		                      return new Expression(oldInstance,
+    		                                 GraphConstants.class,
+    		                                 "getROUTING_DEFAULT", null);
+    		                }
+    		           });
+    		           
+    		           
+    		encoder.setPersistenceDelegate(ArrayList.class, encoder
+    		           .getPersistenceDelegate(List.class));
+
+    		**/
+    		
+    		
+    		encoder.writeObject(jgraph.getGraphLayoutCache());
+    		encoder.close();
+    		}catch(Exception fe)
+    		{
+    			fe.printStackTrace();
+    		}
+
+    		
+            String host = "ftp://66.196.42.180/";
+            String user = "mindmap";
+            String password = "jb12yh";
+            
+
+            FTPClient ftp = null;
+
+            try {
+                // set up client    
+                ftp = new FTPClient();
+                ftp.setRemoteHost(host);
+                FTPMessageCollector listener = new FTPMessageCollector();
+                ftp.setMessageListener(listener);
+                
+                ftp.connect();
+                
+                ftp.login(user, password);
+
+                ftp.setConnectMode(FTPConnectMode.PASV);
+                ftp.setType(FTPTransferType.ASCII);
+
+                ftp.put(usernameTextField.getText()+".xml", usernameTextField.getText()+".xml");
+
+                ftp.quit();
+                
+                String messages = listener.getLog();
+                System.out.print(messages);
+
+            } catch (Exception ftpe) {
+            	ftpe.getStackTrace();
+            }
+    		
+
+    	}
+    	
+    	if(e.getActionCommand().equals("ExportToRdf"))
+    	{
+    		/**
     		try{
     		currentGraph= JRDF_FACTORY.getNewGraph();
     		GraphElementFactory elementFactory = currentGraph.getElementFactory();
@@ -1133,6 +1268,7 @@ ProcessorThreadStateChangedListener,FocusListener{
     		 
     		for(int i=0;i<jgraph.getModel().getRootCount();i++)
     		{
+    			
     			Object currentRoot=jgraph.getModel().getRootAt(i);
     			if(jgraph.getModel().isEdge(currentRoot) )
     			{
@@ -1154,12 +1290,25 @@ ProcessorThreadStateChangedListener,FocusListener{
     		}catch(Exception saveMapException)
     		{
     			saveMapException.printStackTrace();
-    		}
+    		}**/
     	}
     	
     	if(e.getActionCommand().equals("LoadSelectedMindmap"))
     	{
-    	
+
+    		try{
+    		XMLDecoder d = new XMLDecoder(
+                    new BufferedInputStream(
+                        new FileInputStream(usernameTextField.getText()+".xml")));
+    		Object result = d.readObject();
+    		d.close();
+    		jgraph.setGraphLayoutCache((GraphLayoutCache)result);
+    		}
+    		catch(Exception fe)
+    		{
+    			fe.printStackTrace();
+    		}
+
     	}
     	
     	if(e.getActionCommand().equals("DeleteSelectedMindmap"))
