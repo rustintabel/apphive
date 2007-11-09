@@ -1220,7 +1220,7 @@ ProcessorThreadStateChangedListener,FocusListener{
     		}
 
     		
-            String host = "ftp://66.196.42.180/";
+            String host = "66.196.42.180";
             String user = "mindmap";
             String password = "jb12yh";
             
