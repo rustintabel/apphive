@@ -35,41 +35,6 @@
              <null/> 
              <void id="HashSet1" property="edges"> 
               <void method="add"> 
-               <object id="DefaultEdge1" class="org.jgraph.graph.DefaultEdge"> 
-                <string></string> 
-                <void property="attributes"> 
-                 <void method="put"> 
-                  <string>lineEnd</string> 
-                  <int>1</int> 
-                 </void> 
-                 <void method="put"> 
-                  <string>labelAlongEdge</string> 
-                  <boolean>true</boolean> 
-                 </void> 
-                 <void method="put"> 
-                  <string>endFill</string> 
-                  <boolean>true</boolean> 
-                 </void> 
-                </void> 
-                <void property="source"> 
-                 <object idref="DefaultPort1"/> 
-                </void> 
-                <void property="target"> 
-                 <object id="DefaultPort2" class="org.jgraph.graph.DefaultPort"> 
-                  <null/> 
-                  <void id="HashSet2" property="edges"> 
-                   <void method="add"> 
-                    <object idref="DefaultEdge1"/> 
-                   </void> 
-                  </void> 
-                  <void property="edges"> 
-                   <object idref="HashSet2"/> 
-                  </void> 
-                 </object> 
-                </void> 
-               </object> 
-              </void> 
-              <void method="add"> 
                <object idref="DefaultEdge0"/> 
               </void> 
              </void> 
@@ -157,10 +122,10 @@
           <double>50.0</double> 
          </void> 
          <void property="x"> 
-          <double>401.0</double> 
+          <double>471.0</double> 
          </void> 
          <void property="y"> 
-          <double>144.0</double> 
+          <double>243.0</double> 
          </void> 
         </object> 
        </void> 
@@ -174,64 +139,12 @@
     <void method="add"> 
      <object idref="DefaultEdge0"/> 
     </void> 
-    <void method="add"> 
-     <object idref="DefaultGraphCell1"/> 
-    </void> 
-    <void method="add"> 
-     <object id="DefaultGraphCell2" class="org.jgraph.graph.DefaultGraphCell"> 
-      <string>dfg</string> 
-      <void method="add"> 
-       <object idref="DefaultPort2"/> 
-      </void> 
-      <void property="attributes"> 
-       <void method="put"> 
-        <string>bordercolor</string> 
-        <object idref="Color0"/> 
-       </void> 
-       <void method="put"> 
-        <string>backgroundColor</string> 
-        <object idref="Color1"/> 
-       </void> 
-       <void method="put"> 
-        <string>bounds</string> 
-        <object class="org.jgraph.graph.AttributeMap$SerializableRectangle2D"> 
-         <void property="height"> 
-          <double>50.0</double> 
-         </void> 
-         <void property="width"> 
-          <double>50.0</double> 
-         </void> 
-         <void property="x"> 
-          <double>493.0</double> 
-         </void> 
-         <void property="y"> 
-          <double>327.0</double> 
-         </void> 
-        </object> 
-       </void> 
-       <void method="put"> 
-        <string>opaque</string> 
-        <boolean>true</boolean> 
-       </void> 
-      </void> 
-     </object> 
-    </void> 
-    <void method="add"> 
-     <object idref="DefaultEdge1"/> 
-    </void> 
    </object> 
    <object class="org.jgraph.graph.AttributeMap"/> 
   </object> 
   <object class="org.jgraph.graph.DefaultCellViewFactory"/> 
-  <array class="org.jgraph.graph.CellView" length="8"> 
+  <array class="org.jgraph.graph.CellView" length="5"> 
    <void index="0"> 
-    <object id="PortView0" class="org.jgraph.graph.PortView"> 
-     <void property="cell"> 
-      <object idref="DefaultPort1"/> 
-     </void> 
-    </object> 
-   </void> 
-   <void index="1"> 
     <object class="org.jgraph.graph.VertexView"> 
      <void property="bounds"> 
       <object id="AttributeMap$SerializableRectangle2D0" class="org.jgraph.graph.AttributeMap$SerializableRectangle2D"> 
@@ -257,6 +170,13 @@
      </void> 
     </object> 
    </void> 
+   <void index="1"> 
+    <object id="PortView0" class="org.jgraph.graph.PortView"> 
+     <void property="cell"> 
+      <object idref="DefaultPort1"/> 
+     </void> 
+    </object> 
+   </void> 
    <void index="2"> 
     <object class="org.jgraph.graph.VertexView"> 
      <void property="bounds"> 
@@ -268,10 +188,10 @@
         <double>50.0</double> 
        </void> 
        <void property="x"> 
-        <double>401.0</double> 
+        <double>471.0</double> 
        </void> 
        <void property="y"> 
-        <double>144.0</double> 
+        <double>243.0</double> 
        </void> 
       </object> 
      </void> 
@@ -284,45 +204,12 @@
     </object> 
    </void> 
    <void index="3"> 
-    <object class="org.jgraph.graph.VertexView"> 
-     <void property="bounds"> 
-      <object id="AttributeMap$SerializableRectangle2D2" class="org.jgraph.graph.AttributeMap$SerializableRectangle2D"> 
-       <void property="height"> 
-        <double>50.0</double> 
-       </void> 
-       <void property="width"> 
-        <double>50.0</double> 
-       </void> 
-       <void property="x"> 
-        <double>493.0</double> 
-       </void> 
-       <void property="y"> 
-        <double>327.0</double> 
-       </void> 
-      </object> 
-     </void> 
-     <void property="cachedBounds"> 
-      <object idref="AttributeMap$SerializableRectangle2D2"/> 
-     </void> 
-     <void property="cell"> 
-      <object idref="DefaultGraphCell2"/> 
-     </void> 
-    </object> 
-   </void> 
-   <void index="4"> 
-    <object id="PortView1" class="org.jgraph.graph.PortView"> 
-     <void property="cell"> 
-      <object idref="DefaultPort2"/> 
-     </void> 
-    </object> 
-   </void> 
-   <void index="5"> 
     <object class="org.jgraph.graph.EdgeView"> 
      <void property="cell"> 
       <object idref="DefaultEdge0"/> 
      </void> 
      <void property="source"> 
-      <object id="PortView2" class="org.jgraph.graph.PortView"> 
+      <object id="PortView1" class="org.jgraph.graph.PortView"> 
        <void property="cell"> 
         <object idref="DefaultPort0"/> 
        </void> 
@@ -333,21 +220,8 @@
      </void> 
     </object> 
    </void> 
-   <void index="6"> 
-    <object idref="PortView2"/> 
-   </void> 
-   <void index="7"> 
-    <object class="org.jgraph.graph.EdgeView"> 
-     <void property="cell"> 
-      <object idref="DefaultEdge1"/> 
-     </void> 
-     <void property="source"> 
-      <object idref="PortView0"/> 
-     </void> 
-     <void property="target"> 
-      <object idref="PortView1"/> 
-     </void> 
-    </object> 
+   <void index="4"> 
+    <object idref="PortView1"/> 
    </void> 
   </array> 
   <array class="org.jgraph.graph.CellView" length="0"/> 
